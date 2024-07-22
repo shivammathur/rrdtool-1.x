@@ -59,7 +59,7 @@ jobs:
           additionalCachedPaths: ${{ env.buildDir }}/vcpkg_installed
       - name: Build ${{ matrix.configuration }}
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.configuration }}
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.configuration }}
           nmake -f win32\Makefile_vcpkg.msc ${{ matrix.nmake_configuration }}
       - uses: actions/upload-artifact@v4
         with:
