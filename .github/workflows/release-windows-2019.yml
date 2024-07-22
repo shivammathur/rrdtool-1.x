@@ -1,5 +1,5 @@
 ---
-name: Release Windows
+name: Release 2019 Windows
 
 # yamllint disable rule:line-length
 # yamllint disable-line rule:truthy
@@ -19,18 +19,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2022-Readme.md
-        os: [windows-2022]
+        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md
+        os: [windows-2019]
         triplet: [x64-windows, x86-windows]
         include:
-          - os: windows-2022
+          - os: windows-2019
             triplet: x64-windows
             # https://github.com/microsoft/vcpkg/commit/8eb57355a4ffb410a2e94c07b4dca2dffbee8e50
             vcpkgCommitId: '8eb57355a4ffb410a2e94c07b4dca2dffbee8e50'
             vcpkgPackages: 'cairo expat fontconfig freetype gettext glib libpng libxml2 pango pcre zlib'
             configuration: 'x64'
             nmake_configuration: 'USE_64BIT=1'
-          - os: windows-2022
+          - os: windows-2019
             triplet: x86-windows
             vcpkgCommitId: '8eb57355a4ffb410a2e94c07b4dca2dffbee8e50'
             vcpkgPackages: 'cairo expat fontconfig freetype gettext glib libpng libxml2 pango pcre zlib'
@@ -58,7 +58,7 @@ jobs:
           additionalCachedPaths: ${{ env.buildDir }}/vcpkg_installed
       - name: Build ${{ matrix.configuration }}
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.configuration }}
+          call "C:\Program Files\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.configuration }}
           nmake -f win32\Makefile_vcpkg.msc ${{ matrix.nmake_configuration }}
       - uses: actions/upload-artifact@v3
         with:
